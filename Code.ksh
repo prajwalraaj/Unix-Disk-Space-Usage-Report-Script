@@ -4,10 +4,8 @@ disc_usage_report() {
     local dir="$1"
     local recipient="$2"
     local subject="Space used by directories in GB - Disk"
-
     usg=$(df -g "$dir" | awk 'NR==2 {print $4}' | tr -d '%')
     du_output=$(du -shG "$dir")
-
     echo "$du_output" >> /user/prajwal/path/space_scripts/results.txt
 }
 
@@ -26,9 +24,7 @@ done < "$directories"
 res=/user/prajwal/path/space_scripts/results.txt
 subject="Space used by directories in GB - IDL"
 body="Disk paths usage summary:"
-
 {
     echo "$body"
     cat "$res"
 } | mail -s "$subject" "$recipient"
-
